@@ -1,9 +1,15 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-add_definitions(-std=c++11)
+#add_definitions(-std=c++11)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CXX_FLAGS "-Wall")
 set(CMAKE_CXX_FLAGS, "${CXX_FLAGS}")
+
+cmake_policy(SET CMP0144 NEW)
 
 project(playback)
 
@@ -17,7 +23,5 @@ list(REMOVE_ITEM PCL_LIBRARIES "vtkproj4")
 
 add_executable (quizRansac ransac2d.cpp ../../render/render.cpp)
 target_link_libraries (quizRansac ${PCL_LIBRARIES})
-
-
 
 

@@ -19,6 +19,19 @@ pcl::visualization::PCLVisualizer::Ptr initScene(Box window, int zoom)
   	viewer->addCoordinateSystem (1.0);
 
   	viewer->addCube(window.x_min, window.x_max, window.y_min, window.y_max, 0, 0, 1, 1, 1, "window");
+	
+	// Make cube wireframe (outline only)
+    viewer->setShapeRenderingProperties(
+        pcl::visualization::PCL_VISUALIZER_REPRESENTATION,
+        pcl::visualization::PCL_VISUALIZER_REPRESENTATION_WIREFRAME,
+        "window"
+    );
+	// Set outline color to white
+    //viewer->setShapeRenderingProperties(
+    //    pcl::visualization::PCL_VISUALIZER_COLOR,
+    //    1.0, 1.0, 1.0,
+    //    "window"
+    //);
   	return viewer;
 }
 
@@ -72,15 +85,55 @@ void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Bo
 
 
 	}
+}
 
+/*
+Function to recursively build clusters
+*/
+void clusterHelper(int indice, const std::vector<std::vector<float>>& points, std::vector<int>& cluster, std::vector<bool>& processed, KdTree* tree, float distanceTol)
+{
+	// 1. Mark point as processed and add to cluster
+ 	processed[indice] = true;
+	cluster.push_back(indice);
+
+	// 2. Search nearby points to the current point
+	std::vector<int> nearby = tree->search(points[indice], distanceTol);
+
+	// 3. Iterate through nearby points and process unprocessed points recursively
+	for(int id : nearby)
+	{
+		if(!processed[id])
+		{
+			clusterHelper(id, points, cluster, processed, tree, distanceTol);
+		}
+	}
 }
 
 std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
 {
-
-	// TODO: Fill out this function to return list of indices for each cluster
-
 	std::vector<std::vector<int>> clusters;
+
+	// keep track of processed points with the same size as points vector (point cloud)
+	std::vector<bool> processed(points.size(), false);
+
+	int i = 0;
+	while(i < points.size())
+	{
+
+		if(processed[i])
+		{
+			// point already processed, increment and skip
+			i++;
+			continue;
+		}
+
+		// Poimnt not processed, create new cluster
+		std::vector<int> cluster;
+		// Use helper function to populate cluster. Runs recursively until all nearby points processed
+		clusterHelper(i, points, cluster, processed, tree, distanceTol);
+		clusters.push_back(cluster);
+		i++;
+	}
  
 	return clusters;
 
