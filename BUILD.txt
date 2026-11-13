@@ -7,7 +7,7 @@ Requirements (Ubuntu 24.04)
 
 Build (everything: main program + quizzes)
 ------------------------------------------
-  cd ~/personal/SFND_Lidar_Obstacle_Detection
+  cd ~/personal/udacity_ws/SFND_Lidar_Obstacle_Detection
   cmake -S . -B build
   cmake --build build -j
 

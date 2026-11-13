@@ -4,7 +4,7 @@ if(POLICY CMP0144)
   cmake_policy(SET CMP0144 NEW)  # find_package uses upper-case <PACKAGE>_ROOT variables
 endif()
 
-project(lidar_obstacle_detection LANGUAGES CXX)
+project(lidar_obstacle_detection LANGUAGES C CXX)  # C is needed by VTK's MPI dependency
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
