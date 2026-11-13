@@ -38,3 +38,24 @@ VS Code / IntelliSense
   2. Install the recommended extensions (C/C++ and CMake Tools).
   3. Build once; IntelliSense reads build/compile_commands.json
      (configured in .vscode/settings.json).
+
+Git: this repo is a fork of Udacity - careful with pull requests
+-----------------------------------------------------------------
+  origin = git@github-personal:clams97/SFND_Lidar_Obstacle_Detection.git
+  (a fork of udacity/SFND_Lidar_Obstacle_Detection)
+
+  On a fork, GitHub's "Create pull request" page (including the link
+  printed after "git push") often defaults the target to the UPSTREAM
+  repo, udacity/SFND_Lidar_Obstacle_Detection. Opening it like that
+  sends your PR to Udacity, where it is public and also triggers their
+  workflow that creates a Jira ticket.
+
+  If you open a PR, always check the top of the page:
+    base repository: clams97/SFND_Lidar_Obstacle_Detection   (NOT udacity/...)
+    base:            my_project
+    compare:         <your feature branch>
+
+  Simpler: skip PRs and merge locally:
+    git switch my_project
+    git merge <your feature branch>
+    git push
