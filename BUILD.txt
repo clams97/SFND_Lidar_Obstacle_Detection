@@ -1,0 +1,40 @@
+SFND Lidar Obstacle Detection - build and run
+=============================================
+
+Requirements (Ubuntu 24.04)
+---------------------------
+  sudo apt install build-essential cmake libpcl-dev
+
+Build (everything: main program + quizzes)
+------------------------------------------
+  cd ~/personal/SFND_Lidar_Obstacle_Detection
+  cmake -S . -B build
+  cmake --build build -j
+
+Build only the main program (skip quizzes)
+------------------------------------------
+  cmake -S . -B build -DBUILD_QUIZZES=OFF
+  cmake --build build -j
+
+Debug build (default is Release)
+--------------------------------
+  cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+  cmake --build build -j
+
+Clean rebuild
+-------------
+  rm -rf build
+  cmake -S . -B build && cmake --build build -j
+
+Run (works from any folder; data path is set by CMake as DATA_DIR)
+------------------------------------------------------------------
+  ./build/environment
+  ./build/src/quiz/ransac/quizRansac
+  ./build/src/quiz/cluster/quizCluster
+
+VS Code / IntelliSense
+----------------------
+  1. Open the repo folder in VS Code.
+  2. Install the recommended extensions (C/C++ and CMake Tools).
+  3. Build once; IntelliSense reads build/compile_commands.json
+     (configured in .vscode/settings.json).
